@@ -32,7 +32,7 @@ class Graph {
 	  Graph(std::string);
     std::vector<Vertex> find_and_sort_adjacent_vertices();
     BoostGraph* create_graph_from_input_file(std::string);
-    void reduce_to_n_pairwise(int);
+    void reduce_by_n_critical_nodes(int);
 };
 
 #endif
