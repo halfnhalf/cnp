@@ -1,7 +1,7 @@
 CXX=clang++
 LDFLAGS=-g
-CXXFLAGS=-g -c -Wc++11-extensions
-OBJS=main.o
+CXXFLAGS=-g -c -std=c++11
+OBJS=main.o graph.o
 RM=rm -f
 TARGET=project
 
@@ -12,6 +12,9 @@ $(TARGET): $(OBJS)
 
 main.o: main.cpp
 	$(CXX) $(CXXFLAGS) main.cpp
+
+graph.o: graph.cpp
+	$(CXX) $(CXXFLAGS) graph.cpp
 
 clean:
 	$(RM) $(OBJS)
