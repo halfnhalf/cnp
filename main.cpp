@@ -16,19 +16,32 @@ bool DEBUG = true;
 //
 
 int main(void) {
-	bool DEBUG = true;
   boost::minstd_rand gen;
 
-  //use input file to create graph
 	std::cout << "CMSC 401 project by Zachary Clute" << std::endl;
-  Graph graph("cnp.in");
-  boost::print_graph(*graph.graph);
 
-  //find the critical nodes for the graph
-  std::vector<Vertex> junk = graph.find_critical_nodes(4);
+  //use input file to create graph
+  Graph graph("cnp.in");
+  std::cout << "original graph" << std::endl;
+  boost::print_graph(*graph.graph);
+  graph.find_and_sort_adjacent_vertices();
+  graph.reduce_to_n_pairwise(4);
+  std::cout << "reduced graph" << std::endl;
+  boost::print_graph(*graph.graph);
+  for(auto const& node : graph.removed_nodes)
+    std::cout << "removed node: " << node << std::endl;
 
   //generate random graphs
-  BoostGraph random_graph(ERGen(gen, 100, .05), ERGen(), 100);
+  BoostGraph random_graph(ERGen(gen, 50, .05), ERGen(), 50);
+  Graph ran_graph(&random_graph);
+  std::cout << "original graph" << std::endl;
+  boost::print_graph(*ran_graph.graph);
+  ran_graph.find_and_sort_adjacent_vertices();
+  ran_graph.reduce_to_n_pairwise(5);
+  std::cout << "reduced graph" << std::endl;
+  boost::print_graph(*ran_graph.graph);
+  for(auto const& node : ran_graph.removed_nodes)
+    std::cout << "removed node: " << node << std::endl;
 
 	return 0;
 }

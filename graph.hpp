@@ -1,5 +1,9 @@
 #ifndef graph_h_included
 #define graph_h_included
+#include <iostream>
+#include <fstream>
+#include <algorithm>
+#include <functional>
 #include <vector>
 #include <boost/graph/adjacency_matrix.hpp>
 #include <boost/graph/graph_utility.hpp>
@@ -21,12 +25,14 @@ class Graph {
 
   public:
     BoostGraph* graph;
+    std::vector<Vertex> sorted_nodes;
+    std::vector<Vertex> removed_nodes;
 
     Graph(BoostGraph*);
 	  Graph(std::string);
-    std::vector<Vertex> find_critical_nodes(int);
+    std::vector<Vertex> find_and_sort_adjacent_vertices();
     BoostGraph* create_graph_from_input_file(std::string);
-    bool adjacent_vertices_compare(const Vertex, const Vertex);
+    void reduce_to_n_pairwise(int);
 };
 
 #endif
